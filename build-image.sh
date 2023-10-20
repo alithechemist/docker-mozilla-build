@@ -3,9 +3,17 @@
 #
 set -x
 
-VERSION="115.3.1"
+# Only setting needed!
 BASEDIR="/home/g/Projects/gnuzilla/"
+
 DATADIR="${BASEDIR}/data"
+
+MAJOR=$(grep "readonly FFMAJOR" ${BASEDIR}/makeicecat | cut -d "=" -f 2)
+MINOR=$(grep "readonly FFMINOR" ${BASEDIR}/makeicecat | cut -d "=" -f 2)
+FFSUB=$(grep "readonly FFSUB" ${BASEDIR}/makeicecat | cut -d "=" -f 2)
+
+VERSION="${MAJOR}.${MINOR}.${FFSUB}"
+
 SRCDIR="${BASEDIR}/output/icecat-${VERSION}"
 
 
@@ -22,5 +30,8 @@ docker build testbuild -t mozilla-build:test -f Dockerfile
 #cp ${DATADIR}/buildscripts/mozconfig-common ${SRCDIR}/.mozconfig
 #cat ${DATADIR}/buildscripts/mozconfig-gnulinux >> ${SRCDIR}/.mozconfig
 
+
+# Todo:
+# Simplify this is basicelly mounting the same directory twice!
 # Run with:
 docker run -v ${SRCDIR}:/usr/local/src/icecat -v ${BASEDIR}:/usr/local/src/icecat_root -it mozilla-build:test
