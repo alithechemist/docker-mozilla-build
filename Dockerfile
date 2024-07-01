@@ -26,6 +26,6 @@ RUN apt update && \
     nasm libgtk-3-dev libdbus-glib-1-dev checkinstall rpm
 
 RUN mkdir -p /usr/local/src/icecat
-Run mkdir -p /usr/local/src/icecat_root
+RUN mkdir -p /usr/local/src/icecat_root
 
 WORKDIR /usr/local/src/icecat
